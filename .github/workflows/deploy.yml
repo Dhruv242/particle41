@@ -1,3 +1,4 @@
+##make sure you have set secrets in git action and created repo in ecr with name "dkapp"
 name: Build and Push Docker Image to ECR
 
 on:

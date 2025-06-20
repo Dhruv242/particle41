@@ -25,6 +25,6 @@ jobs:
 
     - name: Build and Push Docker Image
       run: |
-        docker build -t dkapp .
+        docker build -t dkapp ./app
         docker tag dkapp:latest ${{ secrets.ECR_REGISTRY }}/dkapp:latest
         docker push ${{ secrets.ECR_REGISTRY }}/dkapp:latest

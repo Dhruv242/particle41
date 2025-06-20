@@ -11,7 +11,7 @@
 
 # Crash logs
 crash.log
-
+.DS_Store
 # Ignore override files (optional)
 override.tf
 override.tf.json

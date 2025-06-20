@@ -31,7 +31,7 @@ jobs:
       run: terraform plan
 
     - name: Terraform Apply
-      run: terraform apply -auto-approve
+      run: terraform destroy -auto-approve
 
     - name: Login to Amazon ECR
       run: |

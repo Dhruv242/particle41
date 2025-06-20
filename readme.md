@@ -1,18 +1,12 @@
 ## Description
 
+- In this Code you find the word "dk" these are the initials of my name.
+
 This architecture allows you to create an EKS (Elastic Kubernetes Service) cluster in AWS with its node group and native VPC CNI configuration for networking.
 
 It also contains the IAM roles needed for both the cluster and the node group.
 
 It accepts incoming traffic from internet through the internet gateway and route it to the subnets.
-
-**N.B:**
-
-- The Terraform code is automatically generated with best practices and contains variables that you can customize to fir your needs.
-- You have full control to change, add, delete resources or their configuration. The newly generated code will reflect these changes.
-- You can replace some resources with Terraform modules.
-
-> terraform apply status: successful
 
 ## Architecture components
 
@@ -43,7 +37,7 @@ Clone the architecture and modify the following variables according to your need
 | scaling | Parameters of the scaling, including min and max capacity |
 | sg_name | Security group name |
 | subnets | Subnets with their configuration |
+| NAT | Associated with Private subnet Deployed in Public subnet |
 | tags | Tags that are added to all resources |
 | vpc_cidr | The CIDR of the VPC |
 | workstation-external-cidr | The external IP address that is allowed to access the cluster |
-

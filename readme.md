@@ -47,13 +47,3 @@ Clone the architecture and modify the following variables according to your need
 | vpc_cidr | The CIDR of the VPC |
 | workstation-external-cidr | The external IP address that is allowed to access the cluster |
 
-**N.B:**
-
-- Feel free to remove the resources that are not relevant to your use-case.
-- Some variables have default values, please change it if it doesn't fit your deployment.
-
-## Maintainers
-
-You can reach out to these maintainers if you need help or assistance:
-
-- [particle-dk team](mailto:support@particle-dk.co)

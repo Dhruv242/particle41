@@ -18,5 +18,5 @@ docker build -t dk_particle ./app
 
 
 
-## YOU CAN PULL IMAGE FROM "dk32213/dk_particle:latest" public ECR
+## YOU CAN PULL IMAGE FROM "dk32213/dk_particle:latest" Public Repo 
 # docker pull dk32213/dk_particle:latest

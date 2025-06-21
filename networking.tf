@@ -14,10 +14,48 @@ resource "aws_subnet" "snet1" {
 resource "aws_subnet" "snet2" {
   vpc_id                  = aws_vpc.default.id
   tags                    = merge(var.tags, {})
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
   cidr_block              = var.subnets[1]
   availability_zone       = "us-east-1b"
 }
+
+resource "aws_eip" "nat" {
+  domain = "vpc"
+}
+
+resource "aws_nat_gateway" "nat" {
+  allocation_id = aws_eip.nat.id
+  subnet_id     = aws_subnet.snet1.id  # NAT in public subnet
+}
+
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.default.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gtw.id
+  }
+}
+
+resource "aws_route_table_association" "public_assoc" {
+  subnet_id      = aws_subnet.snet1.id
+  route_table_id = aws_route_table.public.id
+}
+
+resource "aws_route_table" "private" {
+  vpc_id = aws_vpc.default.id
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.nat.id
+  }
+}
+
+resource "aws_route_table_association" "private_assoc" {
+  subnet_id      = aws_subnet.snet2.id
+  route_table_id = aws_route_table.private.id
+}
+
 
 resource "aws_internet_gateway" "gtw" {
   vpc_id = aws_vpc.default.id
@@ -38,10 +76,6 @@ resource "aws_route_table" "default" {
   }
 }
 
-resource "aws_route_table_association" "route-association-2" {
-  subnet_id      = aws_subnet.snet2.id
-  route_table_id = aws_route_table.default.id
-}
 
 resource "aws_security_group" "cluster-sg" {
   vpc_id      = aws_vpc.default.id

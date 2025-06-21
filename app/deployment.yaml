@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dkapp-deployment
+  labels:
+    app: dkapp
+spec:
+  replicas: 1  # Start with 1 to test scheduling
+  selector:
+    matchLabels:
+      app: dkapp
+  template:
+    metadata:
+      labels:
+        app: dkapp
+    spec:
+      containers:
+        - name: dkapp-container
+          image: 692738840749.dkr.ecr.us-east-1.amazonaws.com/dkapp:latest
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "32Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"

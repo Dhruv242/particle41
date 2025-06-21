@@ -59,3 +59,25 @@ resource "aws_iam_role_policy_attachment" "cluster-AmazonEKSVPCResourceControlle
   role       = aws_iam_role.iam-cluster.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
 }
+
+resource "aws_iam_role" "eks_admin_role" {
+  name = "eks-admin-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+        },
+        Action = "sts:AssumeRole",
+        Condition = {}
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "eks_admin_access" {
+  role       = aws_iam_role.eks_admin_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+}

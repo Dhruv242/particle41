@@ -42,7 +42,7 @@ Clone the architecture and modify the following variables according to your need
 | vpc_cidr | The CIDR of the VPC |
 | workstation-external-cidr | The external IP address that is allowed to access the cluster |
 
-## IMPORTTANT ##
+## IMPORTANT ##
 **Make Sure You have "terraform-statefile-particle41" bucket in N.V(us-east-1) region also make sure to have dynamodb table with the name "terraform-locks" and with "LockID" as primary Key
 
 ## Steps to Follow

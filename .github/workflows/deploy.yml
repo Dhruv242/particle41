@@ -30,6 +30,6 @@ jobs:
 
     - name: Build and Push Docker Image to ECR Public
       run: |
-        docker build -t dk_particle .
+        docker build -t dk_particle ./app
         docker tag dk_particle:latest public.ecr.aws/p1o6l2q2/dk_particle:latest
         docker push public.ecr.aws/p1o6l2q2/dk_particle:latest

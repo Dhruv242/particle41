@@ -1,5 +1,8 @@
-##make sure you have set secrets in git action and created repo in ecr with name "dkapp"
-name: Build and Push Docker Image to ECR
+## Make sure you have set secrets in GitHub Actions:
+## - AWS_ACCESS_KEY_ID
+## - AWS_SECRET_ACCESS_KEY
+
+name: Build and Push Docker Image to ECR Public
 
 on:
   push:
@@ -20,12 +23,13 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
-    - name: Login to Amazon ECR
+    - name: Login to Amazon ECR Public
       run: |
-        aws ecr get-login-password | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}
+        aws ecr-public get-login-password --region us-east-1 | \
+        docker login --username AWS --password-stdin public.ecr.aws/p1o6l2q2
 
-    - name: Build and Push Docker Image
+    - name: Build and Push Docker Image to ECR Public
       run: |
-        docker build -t dkapp ./app
-        docker tag dkapp:latest ${{ secrets.ECR_REGISTRY }}/dkapp:latest
-        docker push ${{ secrets.ECR_REGISTRY }}/dkapp:latest
+        docker build -t dk_particle .
+        docker tag dk_particle:latest public.ecr.aws/p1o6l2q2/dk_particle:latest
+        docker push public.ecr.aws/p1o6l2q2/dk_particle:latest

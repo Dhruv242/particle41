@@ -36,3 +36,4 @@ terraform.tfstate.backup
 *.log
 
 .terraform/
+.gitignore

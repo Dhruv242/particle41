@@ -41,3 +41,14 @@ Clone the architecture and modify the following variables according to your need
 | tags | Tags that are added to all resources |
 | vpc_cidr | The CIDR of the VPC |
 | workstation-external-cidr | The external IP address that is allowed to access the cluster |
+
+## IMPORTTANT ##
+**Make Sure You have "terraform-statefile-particle41" bucket in N.V(us-east-1) region also make sure to have dynamodb table with the name "terraform-locks" and with "LockID" as primary Key
+
+## Steps to Follow
+
+
+- aws configure            ## set your AWS credentilas 
+- terraform init
+- terraform plan
+- terraform apply -auto-approve

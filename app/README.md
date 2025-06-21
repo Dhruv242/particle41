@@ -14,7 +14,9 @@ A minimalist microservice that returns the current timestamp and the IP address 
 ### Build the image
 
 ```bash
-docker build -t yourdockerhubusername/simpletimeservice .
+docker build -t dk_particle ./app 
+
+
 
 ## YOU CAN PULL IMAGE FROM "public.ecr.aws/p1o6l2q2/dk_particle:latest" public ECR
 # docker pull public.ecr.aws/p1o6l2q2/dk_particle:latest

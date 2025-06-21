@@ -1,8 +1,4 @@
-## Make sure you have set secrets in GitHub Actions:
-## - AWS_ACCESS_KEY_ID
-## - AWS_SECRET_ACCESS_KEY
-
-name: Build and Push Docker Image to ECR Public
+name: Build and Push Docker Image to Docker Hub
 
 on:
   push:
@@ -16,20 +12,10 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
+    - name: Login to Docker Hub
+      run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-    - name: Login to Amazon ECR Public
+    - name: Build and Push Docker Image to Docker Hub
       run: |
-        aws ecr-public get-login-password --region us-east-1 | \
-        docker login --username AWS --password-stdin public.ecr.aws/p1o6l2q2
-
-    - name: Build and Push Docker Image to ECR Public
-      run: |
-        docker build -t dk_particle ./app
-        docker tag dk_particle:latest public.ecr.aws/p1o6l2q2/dk_particle:latest
-        docker push public.ecr.aws/p1o6l2q2/dk_particle:latest
+        docker build -t dk32213/dk_particle ./Task-1-Docker
+        docker push dk32213/dk_particle:latest

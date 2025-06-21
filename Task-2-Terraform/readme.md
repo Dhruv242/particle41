@@ -1,5 +1,6 @@
 ## Description
 
+- This is the server-based Infra
 - In this Code you find the word "dk" these are the initials of my name.
 
 This architecture allows you to create an EKS (Elastic Kubernetes Service) cluster in AWS with its node group and native VPC CNI configuration for networking.
@@ -52,3 +53,7 @@ Clone the architecture and modify the following variables according to your need
 - terraform init
 - terraform plan
 - terraform apply -auto-approve
+
+
+## To destroy
+- terraform destroy    ## If unable to delete properly delete LoadBalancer in aws all other resorces will be deleted

@@ -7,9 +7,9 @@ variable "scaling" {
   description = "The scaling capacity of the cluster."
   type        = map(any)
   default = {
-    desired = 1
-    max     = 1
-    min     = 1
+    desired = 4
+    max     = 4
+    min     = 4
   }
 }
 
@@ -20,9 +20,9 @@ variable "sg_name" {
 }
 
 variable "subnets" {
-  description = "Subnets where cluster resources are deployed."
+  description = "Subnets for public and private."
   type        = list(string)
-  default     = ["10.0.0.0/24", "10.0.1.0/24"]
+  default     = ["10.0.0.0/24", "10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 }
 
 variable "tags" {

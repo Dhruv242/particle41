@@ -18,5 +18,5 @@ docker build -t dk_particle ./app
 
 
 
-## YOU CAN PULL IMAGE FROM "public.ecr.aws/p1o6l2q2/dk_particle:latest" public ECR
-# docker pull public.ecr.aws/p1o6l2q2/dk_particle:latest
+## YOU CAN PULL IMAGE FROM "dk32213/dk_particle:latest" public ECR
+# docker pull dk32213/dk_particle:latest

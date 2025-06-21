@@ -3,14 +3,13 @@ resource "aws_eks_node_group" "default" {
   node_role_arn   = aws_iam_role.default-iam.arn
   node_group_name = "particle-dk_k8s"
   cluster_name    = aws_eks_cluster.default.name
-  instance_types = ["t2.micro"]
+  instance_types  = ["t2.micro"]
 
   depends_on = [
     aws_iam_role_policy_attachment.node-AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.node-AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
   ]
-
 
   scaling_config {
     min_size     = var.scaling.min
@@ -19,9 +18,11 @@ resource "aws_eks_node_group" "default" {
   }
 
   subnet_ids = [
-    aws_subnet.snet2.id
+    aws_subnet.private_1a.id,
+    aws_subnet.private_1b.id,
   ]
 }
+
 
 resource "aws_eks_cluster" "default" {
   role_arn = aws_iam_role.iam-cluster.arn
@@ -33,7 +34,7 @@ resource "aws_eks_cluster" "default" {
   ]
 
   tags = {
-    env      = "Staging"
+    env = "Devlopment"
   }
 
   vpc_config {
@@ -41,41 +42,9 @@ resource "aws_eks_cluster" "default" {
       aws_security_group.cluster-sg.id,
     ]
     subnet_ids = [
-      aws_subnet.snet1.id,
-      aws_subnet.snet2.id,
+      aws_subnet.private_1a.id,
+      aws_subnet.private_1b.id,
     ]
   }
-}
-
-resource "kubernetes_config_map" "aws_auth" {
-  metadata {
-    name      = "aws-auth"
-    namespace = "kube-system"
-  }
-
-  data = {
-    mapRoles = yamlencode([
-      {
-        rolearn  = aws_iam_role.default-iam.arn
-        username = "system:node:{{EC2PrivateDNSName}}"
-        groups   = [
-          "system:bootstrappers",
-          "system:nodes"
-        ]
-      },
-      {
-        rolearn  = aws_iam_role.eks_admin_role.arn
-        username = "eks-admin"
-        groups   = [
-          "system:masters"
-        ]
-      }
-    ])
-  }
-
-  depends_on = [
-    aws_eks_cluster.default,
-    aws_eks_node_group.default,
-  ]
 }
 

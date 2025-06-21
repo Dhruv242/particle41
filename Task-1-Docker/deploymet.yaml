@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dk-particle-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dk-particle
+  template:
+    metadata:
+      labels:
+        app: dk-particle
+    spec:
+      containers:
+      - name: dk-particle-container
+        image: dk32213/dk_particle:latest
+        ports:
+        - containerPort: 5000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dk-particle-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: dk-particle
+  ports:
+  - port: 80          # Exposed on LoadBalancer
+    targetPort: 5000  # Inside container

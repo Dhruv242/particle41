@@ -56,4 +56,4 @@ Clone the architecture and modify the following variables according to your need
 
 
 ## To destroy
-- terraform destroy    ## If unable to delete properly delete LoadBalancer in aws all other resorces will be deleted
+- terraform destroy    
